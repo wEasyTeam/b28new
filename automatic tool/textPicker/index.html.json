@@ -1,0 +1,101 @@
+
+/*---  index.html  ---*/
+If you come across a phrase that have two(or more) meanings in diffrent situation, you can name the secondary meanings with a new name, and add 'data-lang="theNewName"' label where you want the text to be replaced with the another meaning.
+A movie name
+Happiness
+A felling of delight
+Just like this(I make up them):
+Configure b28Cfg to customize translate style of your own.
+: If you want to switch language
+					 on the web page, just add a select element with id 'select-lang' and enable this config.
+					 You can also use
+and then reload the page if necessary
+					  to change language on your own way.
+B.setLang(language)
+b28Cfg.initSelect = true
+: Replace the text-node with html text instead of
+					plain text, we disabled it by default.
+b28Cfg.insertHTML = true
+: Trim the text-node value before match the translation.
+b28Cfg.trimText = true
+: True means you choose to use the text node it self
+					as the anchor to match the translation, while false means you add a "data-lang='value'" label
+					for every translated node as a translation anchor, and using 'value' to match translation.
+					 Only add "data-lang" label to element node and when you do that b28 won't traverse it's childern nodes any more, so be careful with it.
+b28Cfg.idDefaultLang = true
+: Set the file type of translatin pakeges.
+b28Cfg.fileType = "JSON"
+: The first tip has told about the part
+					default language plays.
+b28Cfg.defaultLang = 'en'
+: Only language in the support array 
+					can be shown in the web pages, make sure you have every supported language translated.
+b28Cfg.supportLang = ["en", "cn"]
+Use
+without set 
+			a definite language, the script will aotomatic set a language for you. Language set in cookie have the 
+			highest priority, the cookie name is 'bLanguage'. The navigator language will be consider 
+			secondly. And if we don't have cookie named with 'bLanguage' or cookie language as well as navigator 
+			language is not in support list, we'll use the default language to show the pages.
+B.setTextDomain(["languagePacketFile1", "languagePacketFile2"]);
+We've got some helpful tips for you here:
+Do it better with b28new
+JSON in Excel
+xml opened in Excel as xml file
+Ok, now you might think it's time to declare mission accomplished, but I have to 
+				remind you the tranlation may not be perfect, do take care about the style for translation
+				text may be much longer(or shorter) than the before.
+Put the JSON or xml file in the lang folder. And add a script
+in the html right after
+.Then try to 
+				open your work on browser to see if the translate works.
+<script src="lang/b28new_3.0.0.js"></script>
+B.setTextDomain(["languagePacketFile1", "languagePacketFile2"], language);
+About the text in javascript file, you need to translate them with function "_" 
+				like this:
+.
+_('text')
+Yes, you can also try it out to arrange the JSON file in this way by hand
+				 and share your feelings with us, for we've never done that before. Oh, don't 
+				 forget to escape ' " ' and ' \ ' or you won't like to see the translate result.
+{"OK":"确定",
+"Cancel":"取消",
+"Save":"保存"}
+If you want your language packet organized in the form of JSON, you should choose 
+				excel(Use Microsoft Excel 2007 or higher version) as carrier of translation, and use language as column title. You can also add an extra column for JSON as "msgid" when you don't want use the translated text itself as translate anchor, then you should have the text wrapped with an element tag and add a data-lang="msgid" attribute on it. We have a automatic tool in perl named "JSONParser" in folder "automaticTool" to parse excel file in JSON format(writen by linguang), but it can only be installed on linux, 
+				 you can read the "readme" document to get start. The output file look like this:
+xml in excel
+But the xml style is not recommend, for it have to use redundant tags and the speed of translation is slower than JSON style.
+If you want to carrier translation with xml file, format your file like this:
+After you finished pick-up, for the convenience of translators, we suggest that you put all the text that need to be translated in a excel or xml file like this:
+Do translate
+Well, we used to do the pick-up job all by hand, 
+			and that's quite funny experience, I was serious.
+We have a tool name "textPicker" to help you with rough pick up, 
+			and you may fix the flaws afterwards. You can find it and a brief readme text in folder "automaticTool".
+Pick up text in the html and javascript files
+If you use ajaxLoad to fill a section, don't forget to translate it use:
+B.translate(section || section.id)
+If there is a frame in your translate page, don't set the frame's src 
+						until top window's domready to avoid some unexpected errors.
+You'd better put b28new.js before all the js that might change the 
+					Document incase translate failed.
+Make sure you put b28new.js in the same folder with language files, or you need to modify
+						it to ensure loading language files properly.
+Note:
+First, found a folder to place b28new.js as well as your language files, I create a folder 
+			named 'lang' in the same root with the html file to place it. Then import b28new.js to your html files like this:
+Import b28new.js to your html files
+How to Use
+is a lib that ET.w written for pruduct web pages translation. There has already been a old version named
+Butterfat internationalization
+on the Internet written by
+bmuller@buttterfat.net
+and we refer to it's realization at the first version, so that's why we name this lib with b28new.
+		The lib has been proved to be robust and compatible with allmost all the modern browser as well as ie7 & ie8.
+		Hope that it's helpful!
+bmuller
+b28n.js
+b28new.js
+Introducing b28new.js
+Introduction to b28new.js

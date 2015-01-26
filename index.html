@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Introduction to b28new.js</title>
+	<style type="text/css">
+		html {
+			margin: 0;
+			padding: 0;
+			background: #f4f4f4;
+		}
+		.container {
+			margin: auto;
+			width: 80%;
+			max-width: 1000px;
+			min-width: 400px;
+			font-family: "Helvetica Neue", Helvetica, "Segoe UI";
+		}
+		h1, h2, h3, h4, h5, h6 {
+			color: #555;
+		}
+		code, pre {
+			padding: 0 3px 2px;
+			font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+			font-size: 12px;
+			color: #333;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+		code {
+			padding: 2px 4px;
+			color: #D14;
+			white-space: nowrap;
+			background-color: #F7F7F9;
+			border: 1px solid #E1E1E8;
+		}
+		.prettyprint {
+			padding: 8px;
+			background-color: #F7F7F9;
+			border: 1px solid #E1E1E8;
+		}
+		pre {
+			display: block;
+			padding: 9.5px;
+			margin: 0 0 10px;
+			font-size: 13px;
+			line-height: 20px;
+			word-break: break-all;
+			word-wrap: break-word;
+			white-space: pre;
+			white-space: pre-wrap;
+			background-color: #F5F5F5;
+			border: 1px solid #CCC;
+			border: 1px solid rgba(0, 0, 0, 0.15);
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+		}
+		#select-lang {
+			float: right;
+		}
+	</style>
+	<script src="lang/b28new_3.0.0.js"></script>
+	<script type="text/javascript">
+		B.setTextDomain(["index"]);
+	</script>
+</head>
+<body class="container">
+<select id="select-lang"></select>
+<article>
+		<h1>Introducing b28new.js</h1>
+		<p><em>b28new.js</em> is a lib that ET.w written for pruduct web pages translation. <span data-lang="origin__b28n">There has already been a translation lib named <em title="Butterfat internationalization">b28n.js</em> on the Internet written by <a title="bmuller@buttterfat.net" href="#">bmuller</a> </span>and we refer to it's realization at the first version, so that's why we name this lib with b28new. The lib has been proved to be robust and compatible with allmost all the modern browser as well as ie7 & ie8. Hope that it's helpful!
+		</p>
+	</article>
+	<article>
+		<h2>How to Use</h2>
+		<section>
+			<h3>Import b28new.js to your html files</h3>
+			<p>First, found a folder to place b28new.js as well as your language files, I create a folder named 'lang' in the same root with the html file to place it. Then import b28new.js to your html files like this:
+			</p><pre>&lt;script src="lang/b28new_3.0.0.js"&gt;&lt;/script&gt;</pre>
+			<p>
+				<em>Note:</em>
+				<ol>
+					<li>Make sure you put b28new.js in the same folder with language files, or you need to modify it to ensure loading language files properly.</li>
+					<li>You'd better put b28new.js before all the js that might change the Document incase translate failed.</li>
+					<li>If there is a frame in your translate page, don't set the frame's src until top window's domready to avoid some unexpected errors.</li>
+					<li>If you use ajaxLoad to fill a section, don't forget to translate it use: <code>B.translate(section || section.id)</code></li>
+				</ol>
+			</p>
+		</section>
+		<section>
+			<h3>Pick up text in the html and javascript files</h3>
+			<p>We have a tool name "textPicker" to help you with rough pick up, and you may fix the flaws afterwards. You can find it and a brief readme text in folder "automaticTool".</p>
+			<p>Well, we used to do the pick-up job all by hand, and that's quite funny experience, I was serious.</p>
+		</section>
+		<section>
+			<h3>Do translate</h3>
+			<p>After you finished pick-up, for the convenience of translators, we suggest that you put all the text that need to be translated in a excel or xml file like this:</p>
+			<img src="img/JSON.png" title="JSON in Excel" />
+			<img src="img/xml_excel.png" title="xml opened in Excel as xml file" />
+			<article>
+				<p>If you want to carrier translation with xml file, format your file like this:</p>
+				<img src="img/xml.png" title="xml in excel" />
+				<p>But the xml style is not recommend, for it have to use redundant tags and the speed of translation is slower than JSON style.</p>
+			</article>
+			<article>
+				<p>If you want your language packet organized in the form of JSON, you should choose excel(Use Microsoft Excel 2007 or higher version) as carrier of translation, and use language as column title. You can also add an extra column for JSON as "msgid" when you don't want use the translated text itself as translate anchor, then you should have the text wrapped with an element tag and add a data-lang="msgid" attribute on it. We have a automatic tool in perl named "JSONParser" in folder "automaticTool" to parse excel file you can read the "readme" document to get start. The output file looks like this:
+				</p>
+<pre class="prettyprint">{"OK":"确定",
+"Cancel":"取消",
+"Save":"保存"}</pre>
+				<p>Yes, you can also try it out to arrange the JSON file in this way by hand and share your feelings with us, for we've never done that before. Oh, don't forget to escape ' " ' and ' \ ' or you won't like to see the translate result.</p>
+			</article>
+			<article>
+				<p>About the text in javascript file, you need to translate them with function "_" like this: <code>_('text')</code>. And you may use it this way: <code>_('My name is %s, I like %s', ['lvjs', 'fruit']);</code>, "%s" will be replace by the given arguments.</p>
+			</article>
+			<p><span data-lang="how_to_translate">Put the JSON or xml file in the lang folder. And add a script <code>B.setTextDomain(["languagePacketFile1", "languagePacketFile2"], language);</code> in the html right after <code>&lt;script src="lang/b28new_3.0.0.js"&gt;&lt;/script&gt;</code>.</span>Then try to open your work on browser to see if the translate works. The number of bugs might beyond your expectations, but don't worry, it'll be much better next time.</p>
+			<p>Ok, After finished the debug, you might think it's time to declare mission accomplished, but I have to remind you the tranlation may not be perfect, do take care about the style for translation text may be much longer(or shorter) than the before.</p>
+
+		</section>
+	</article>
+	<article>
+		<h3>Do it better with b28new</h3>
+		<p>We've got some helpful tips for you here:
+		<ol>
+			<li>Use <code>B.setTextDomain(["languagePacketFile1", "languagePacketFile2"]);</code> without set a definite language, the script will aotomatic set a language for you. Language set in cookie have the highest priority, the cookie name is 'bLanguage'. The navigator language will be consider secondly. And if we don't have cookie named with 'bLanguage' or cookie language as well as navigator language is not in support list, we'll use the default language to show the pages.</li>
+			<li>Configure b28Cfg to customize translate style of your own.
+				<ol>
+					<li><code>b28Cfg.supportLang = ["en", "cn"]</code>: Only language in the support array can be shown in the web pages, make sure you have every supported language translated.</li>
+					<li><code>b28Cfg.defaultLang = 'en'</code>: Set a default language to show the page.</li>
+					<li><code>b28Cfg.fileType = "JSON"</code>: Set the file type of translatin pakeges.</li>
+					<li><code>b28Cfg.idDefaultLang = true</code>: True means you choose to use the text node it self as the anchor to match the translation, while false means you add a "data-lang='value'" label for every translated node as a translation anchor, and using 'value' to match translation. Only add "data-lang" label to element node and when you do that b28new.js won't traverse it's childern nodes any more, so be careful with it.</li>
+					<li><code>b28Cfg.trimText = true</code>: Trim the text-node value before match the translation.</li>
+					<li><code>b28Cfg.insertHTML = true</code>: Replace the node-value with html text instead of plain text, we disabled it by default.</li>
+					<li><code>b28Cfg.initSelect = true</code>: If you want to switch language on the web page, just add a select element with id 'select-lang' and enable this config. You can also use <code>B.setLang(language)</code> and then reload the page if necessary to change language on your own way.</li>
+				</ol>
+			</li>
+			<li>If you come across a phrase that have two(or more) meanings in diffrent situation, you can name the secondary meanings with a new name, and add 'data-lang="theNewName"' label where you want the text to be replaced with the another meaning.
+			<p>
+			Just like this:
+			<dl>
+				<dt>Happiness</dt>
+				<dd>A felling of delight</dd>
+				<dt data-lang="Happiness__second">Happiness</dt>
+				<dd>A movie name</dd>
+			</dl>
+			</li>
+			<li>If you find some sentece divided into several blocks by html tags, and which is impossible to translate  word by word, you can wrapped the sentence with a inline tag, and trun "data-lang" attribute for help. Diffrent from tips 3, you need to set b28Cfg.insertHTML to "true" this time.</li>
+		</ol>
+	</article>
+</body>
+</html>
