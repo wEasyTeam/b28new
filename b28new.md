@@ -11,7 +11,7 @@ To get started, checkout [https://github.com/wEasyTeam/b28new.git](https://githu
 
 ## Quick start
 
-Three quick start options are available:
+Two quick start options are available:
 
 * [Download the latest release](https://github.com/wEasyTeam/b28new.git/archive/master.zip).
 * Clone the repo: `git clone https://github.com/wEasyTeam/b28new.git`.
